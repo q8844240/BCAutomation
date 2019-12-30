@@ -1,6 +1,6 @@
 package service;
 
-import io.restassured.http.ContentType;
+    import io.restassured.http.ContentType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,7 +32,7 @@ public class TestWork {
     public void deparCreate(){
 
         HashMap<String,Object> data = new HashMap<String, Object>();
-        data.put("name","种花兔1");
+        data.put("name","种花兔3");
         data.put("parentid",parentDepartid);
 
         given()
@@ -44,6 +44,17 @@ public class TestWork {
                 .then().log().all()
                 .body("errcode",equalTo(0));
 
+    }
+
+    @Test
+    public void getDepartments(){
+        given()
+                .queryParam("access_token",token)
+                .queryParam("id",parentDepartid)
+        .when()
+                .get("https://qyapi.weixin.qq.com/cgi-bin/department/list")
+        .then().log().all()
+                .body("errcode",equalTo(0));
     }
 
 }
