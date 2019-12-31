@@ -33,13 +33,13 @@ public class TestDepartment {
     @Test
     public void create(){
         String name = "种花兔3";
-        department.deparCreate(name).then().body("errmsg",equalTo("created"));
+        department.Create(name).then().body("errmsg",equalTo("created"));
         department.list(department.parentDepartid).then().body("department.id",hasSize(2));
     }
 
     @Test
     public void delete(){
-        int id = department.deparCreate("种花兔5").then().body("errmsg",equalTo("created"))
+        int id = department.Create("种花兔5").then().body("errmsg",equalTo("created"))
                 .extract().body().path("id");
         department.delete(id).then().body("errmsg",equalTo("deleted"));
     }

@@ -24,7 +24,7 @@ public class Department {
                 .extract().response();
     }
 
-    public Response deparCreate(String name,int parentid){
+    public Response Create(String name,int parentid){
 
         HashMap<String,Object> data = new HashMap<String, Object>();
         data.put("name",name);
@@ -42,8 +42,8 @@ public class Department {
 
     }
 
-    public Response deparCreate(String name){
-        return deparCreate(name,parentDepartid);
+    public Response Create(String name){
+        return Create(name,parentDepartid);
     }
 
     public Response delete(int id){
@@ -53,7 +53,7 @@ public class Department {
                 .queryParam("id",id)
         .when()
                 .get("https://qyapi.weixin.qq.com/cgi-bin/department/delete")
-        .then()
+        .then().log().all()
                 .body("errcode",equalTo(0))
         .extract().response();
 
