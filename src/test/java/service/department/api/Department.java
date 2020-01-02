@@ -12,11 +12,12 @@ import static org.hamcrest.Matchers.equalTo;
 public class Department {
 
     public int parentDepartid = 2;
+    public int firstDepartid = 1;
 
     public Response list(int id){
        return given()
                 .queryParam("access_token", Work.getInstance().getToken())
-                .queryParam("id",parentDepartid)
+                .queryParam("id",id)
                 .when()
                 .get("https://qyapi.weixin.qq.com/cgi-bin/department/list")
                 .then().log().all()

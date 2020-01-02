@@ -4,6 +4,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import service.Work;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
@@ -66,8 +67,23 @@ public class Tag {
                 .extract().response();
     }
 
-//    public Response addtagusers(){
-//        return
-//    }
+    public Response addTagusers(Integer tagId, ArrayList userlist,ArrayList partylist){
+
+        HashMap<String,Object> map = new HashMap<String,Object>();
+        map.put("tagid",tagId);
+        map.put("userlist",userlist);
+        map.put("partylist",partylist);
+
+        return  given()
+                .queryParam("access_token",Work.getInstance().getToken())
+                .contentType(ContentType.JSON)
+                .body(map)
+                .when().log().all()
+                .post("https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers")
+                .then().log().all()
+                .body("errcode",equalTo(0))
+                .extract().response();
+
+    }
 
 }
