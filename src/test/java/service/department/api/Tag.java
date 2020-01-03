@@ -86,4 +86,36 @@ public class Tag {
 
     }
 
+    public Response tagGetUsers(Integer tagId){
+
+        return given()
+                .queryParam("access_token",Work.getInstance().getToken())
+                .queryParam("tagid",tagId)
+                .contentType(ContentType.JSON)
+                .when().log().all()
+                .get("https://qyapi.weixin.qq.com/cgi-bin/tag/get")
+                .then().log().all()
+                .body("errcode",equalTo(0))
+                .extract().response();
+
+    }
+
+    public Response deleteTagUsers(Integer tagId, ArrayList userlist,ArrayList partylist){
+
+        HashMap<String,Object> map = new HashMap<String,Object>();
+        map.put("tagid",tagId);
+        map.put("userlist",userlist);
+        map.put("partylist",partylist);
+
+        return  given()
+                .queryParam("access_token",Work.getInstance().getToken())
+                .contentType(ContentType.JSON)
+                .body(map)
+                .when().log().all()
+                .post("https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers")
+                .then().log().all()
+                .body("errcode",equalTo(0))
+                .extract().response();
+    }
+
 }

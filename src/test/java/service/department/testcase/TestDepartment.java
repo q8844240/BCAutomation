@@ -1,7 +1,8 @@
 package service.department.testcase;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import service.department.api.Department;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class TestDepartment {
 
     static Department department = new Department();
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass(){
         ArrayList<Integer> ids = department.list(department.parentDepartid).then()
                 .extract().body().path("department.findAll{d->d.parentid==" + department.parentDepartid + "}.id");

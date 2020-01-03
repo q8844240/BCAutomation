@@ -1,10 +1,11 @@
 package service;
 
     import io.restassured.http.ContentType;
-import org.junit.Before;
-import org.junit.Test;
+    import org.junit.jupiter.api.BeforeAll;
+    import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
+
+    import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -14,8 +15,8 @@ public class TestWork {
     public static String token;
     public static int parentDepartid = 2;
 
-    @Before
-    public void getToken(){
+    @BeforeAll
+    public static void getToken(){
 
         token =  given().param("corpid","ww823c10999f2a4d82")
                 .param("corpsecret","24fck4YslCbwPMlj4Ew9CZWFcEGLwngRsZCQ1SC4SZo")
