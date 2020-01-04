@@ -8,8 +8,8 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.core.annotation.Order;
 import service.department.api.Department;
 import service.department.api.Tag;
-import service.department.api.User;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import service.user.api.User;
+
 import java.util.ArrayList;
 
 import static org.hamcrest.Matchers.equalTo;
