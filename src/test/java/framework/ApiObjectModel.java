@@ -12,6 +12,7 @@ public class ApiObjectModel {
     }
 
     public Response run(String method){
+        System.out.println(methods.get(method).url);
         System.out.println(method);
         return null;
     }
