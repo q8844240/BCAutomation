@@ -5,6 +5,7 @@ import io.restassured.specification.RequestSpecification;
 import service.Work;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -24,13 +25,13 @@ public class ApiObjectMethodModel {
 
         if (query != null) {
             query.entrySet().forEach(entry->{
-                given.queryParam(entry.getKey(),entry.getValue());
+                given.queryParam(entry.getKey(),repalce(entry.getValue().toString()));
             } );
         }
 
         if (header != null) {
             header.entrySet().forEach(entry->{
-                given.header(entry.getKey(),entry.getValue());
+                given.header(entry.getKey(),repalce(entry.getValue().toString()));
             } );
         }
 
@@ -39,11 +40,26 @@ public class ApiObjectMethodModel {
         }
 
         if (postBodyRaw != null){
-            given.body(postBodyRaw);
+            given.body(repalce(postBodyRaw));
         }
 
         return given.when().log().all().request(method,url)
                 .then().log().all().extract().response();
+    }
+
+    public String repalce(String raw){
+
+
+        for (Map.Entry<String,Object> kv : params.entrySet()) {
+            String matcher = "${" + kv.getKey() + "}";
+            if(raw.contains(matcher)){
+                System.out.println("raw="+raw);
+                System.out.println("macher="+matcher);
+                raw = raw.replace(matcher,kv.getValue().toString());
+
+            }
+        }
+        return raw;
     }
 
     public Response run(HashMap<String, Object> params) {

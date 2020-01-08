@@ -63,11 +63,18 @@
                     <artifactId>slf4j-simple</artifactId>
                     <version>1.7.25</version>
                 </dependency>
-        <dependency>
-            <groupId>com.github.spullara.mustache.java</groupId>
-            <artifactId>compiler</artifactId>
-            <version>0.9.6</version>
-        </dependency>
+                <dependency>
+                    <groupId>com.github.spullara.mustache.java</groupId>
+                    <artifactId>compiler</artifactId>
+                    <version>0.9.6</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-params</artifactId>
+                    <version>5.5.2</version>
+                    <scope>test</scope>
+                </dependency>
             </dependencies>
 
         </project>

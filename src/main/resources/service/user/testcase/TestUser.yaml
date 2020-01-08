@@ -1,0 +1,12 @@
+- name: 111
+  userid: 111
+
+- name: 222
+  userid: 122211
+
+- name: 333
+  userid: 333
+  depart: [1,3]
+
+- name: 555
+  userid: 555

@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 public class BaseApi {
 
@@ -34,6 +35,7 @@ public class BaseApi {
 
         return (Response) model.run(method,params);
     }
+
 
     public void setParams(HashMap<String,Object> data){
 

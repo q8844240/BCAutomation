@@ -4,10 +4,15 @@ import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import service.user.api.User;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
@@ -104,6 +109,59 @@ public class TestUser {
         //user.get(userId).then().body("name",equalTo(newName));
         user.delete(userId).then().body("errmsg",equalTo("deleted"));
         user.get(userId).then().body("errcode",not(equalTo(newName)));
+    }
+
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "TestUser.csv")
+    public void deleteParams(String name,String userid){
+
+        String newName = "name for testing1";
+        if (userid.isEmpty()) {
+            userid = "zhy" + System.currentTimeMillis();
+        }
+        HashMap data = new HashMap();
+        data.put("name",newName);
+        //data.put("address","address for testing");
+        data.put("department",new int[]{1});
+        data.put("mobile",String.valueOf(System.currentTimeMillis()).substring(0,11));
+        User user= new User();
+
+        user.create(userid,data).then().body("errcode",equalTo(0));
+        //user.get(userId).then().body("name",equalTo(newName));
+        user.delete(userid).then().body("errmsg",equalTo("deleted"));
+        user.get(userid).then().body("errcode",not(equalTo(newName)));
+    }
+
+    @ParameterizedTest
+    @MethodSource("deleteByParamsFromeYamlData")
+    public void deleteByParamsFromeYaml(String name,String userid){
+
+        String newName = "name for testing1";
+        if (userid.isEmpty()) {
+            userid = "zhy" + System.currentTimeMillis();
+        }
+        HashMap data = new HashMap();
+        data.put("name",newName);
+        //data.put("address","address for testing");
+        data.put("department",new int[]{1});
+        data.put("mobile",String.valueOf(System.currentTimeMillis()).substring(0,11));
+        User user= new User();
+
+        user.create(userid,data).then().body("errcode",equalTo(0));
+        //user.get(userId).then().body("name",equalTo(newName));
+        user.delete(userid).then().body("errmsg",equalTo("deleted"));
+        user.get(userid).then().body("errcode",not(equalTo(newName)));
+    }
+
+    static Stream<Arguments> deleteByParamsFromeYamlData(){
+
+        return Stream.of(
+                Arguments.arguments("xxx","yyy"),
+                Arguments.arguments("111","222")
+
+        );
+
     }
 
 }
