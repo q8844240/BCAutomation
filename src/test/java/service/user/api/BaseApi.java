@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class BaseApi {
 
     ApiObjectModel model = new ApiObjectModel();
-
+    HashMap<String,Object> params;
 
     public Response parseSteps(){
 
@@ -32,7 +32,13 @@ public class BaseApi {
 
         }
 
-        return (Response) model.run(method);
+        return (Response) model.run(method,params);
+    }
+
+    public void setParams(HashMap<String,Object> data){
+
+        params = data;
+
     }
 
 }

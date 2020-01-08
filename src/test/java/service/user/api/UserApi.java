@@ -10,7 +10,7 @@ public class UserApi extends BaseApi {
 
         HashMap<String,Object> params = new HashMap<>();
         params.put("userid",userid);
-
+        setParams(params);
         return parseSteps();
     }
 
