@@ -1,25 +1,33 @@
 package app.page;
 
+
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 
-public class SearchPage {
 
-    private By inputBox = By.id("com.xueqiu.android:id/search_input_text");
+
+public class SearchPage extends BasePage{
+
+    private By inputBox=By.id("com.xueqiu.android:id/search_input_text");
 
     public SearchPage search(String keyWord){
 
         App.driver.findElement(inputBox).sendKeys(keyWord);
-        MobileElement el5 = (MobileElement) App.driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.widget.RelativeLayout[1]/android.widget.LinearLayout/android.widget.TextView[1]");
-        el5.click();
+        click(By.id("name"));
         return this;
     }
 
-    public Integer getCurrentPrice(){
+    public Float getCurrentPrice() {
 
-        MobileElement el6 = (MobileElement) App.driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout/androidx.viewpager.widget.ViewPager/android.widget.RelativeLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout");
-        el6.click();
-        return Integer.valueOf(el6.getText());
-        //测试
+
+        MobileElement el6 = (MobileElement) findElement(By.id("com.xueqiu.android:id/current_price"));
+        //MobileElement el6 = (MobileElement) App.driver.findElementByAccessibilityId("current_price");
+        return Float.valueOf(el6.getText());
+
+    }
+
+    public App cancle(){
+        click(By.id("com.xueqiu.android:id/action_close"));
+        return new App();
     }
 }
