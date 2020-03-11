@@ -22,7 +22,7 @@ public class App extends BasePage {
         //desiredCapabilities.setCapability("deviceName", "1ca2e5260304");
         desiredCapabilities.setCapability("appPackage","com.xueqiu.android");
         desiredCapabilities.setCapability("appActivity","view.WelcomeActivityAlias");
-        desiredCapabilities.setCapability("noReset",false);
+        desiredCapabilities.setCapability("noReset",true);
         desiredCapabilities.setCapability("autoGrantPermissions",true);
         URL remoteUrl = new URL("http://localhost:4723/wd/hub");
 

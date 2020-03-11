@@ -47,9 +47,10 @@ public class BasePage {
         alertBox.add(By.id("com.xueqiu.android:id/image_cancel"));
         alertBox.add(By.id("com.xueqiu.android:id/ib_close"));
         alertBox.add(tips);
+        alertBox.add(By.id("com.xueqiu.android:id/md_buttonDefaultNegative"));
 
 
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
         for (int i = 0; i < alertBox.size(); i++) {
             By adsLocator = alertBox.get(i);
             List<WebElement> ads = driver.findElements(adsLocator);

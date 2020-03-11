@@ -33,4 +33,9 @@ public class StockPage extends BasePage{
         return this;
     }
 
+    public SearchPage toSearch(){
+        click(By.id("com.xueqiu.android:id/action_search"));
+        return new SearchPage();
+    }
+
 }
