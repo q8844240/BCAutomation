@@ -1,0 +1,20 @@
+
+search:
+  steps:
+    - id: search_input_text
+      send: ${keyword}
+    - id: name
+
+getCurrentPrice:
+  steps:
+    - id: current_price
+      get: text
+      dump: price
+
+cancle:
+  steps:
+    - id: action_close
+
+select:
+  steps:
+    - id: follow_btn

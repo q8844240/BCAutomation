@@ -3,11 +3,15 @@ package app.testcase;
 
 import app.page.App;
 import app.page.SearchPage;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import javax.naming.directory.SearchControls;
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,19 +39,26 @@ public class TestSearch {
     }
 
     @Parameterized.Parameters
-    public static Collection<Object[]> data(){
-        return Arrays.asList(new Object[][] {
-                { "alibaba", 100f },
-                { "xiaomi", 8f },
-                { "jingdong", 33f }
-        });
+    public static Collection<Object[]> data() throws IOException {
+//        return Arrays.asList(new Object[][] {
+//                { "alibaba", 100f },
+//                { "xiaomi", 8f },
+//                { "jingdong", 33f }
+//        });
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        String path = "/"+TestSearch.class.getCanonicalName().replace(".","/")+".yaml";
+        Object[][] demo = mapper.readValue(
+                TestSearch.class.getResourceAsStream(path),
+                Object[][].class
+        );
+        return Arrays.asList(demo);
     }
 
     @Parameterized.Parameter(0)
     public String stock;
 
     @Parameterized.Parameter(1)
-    public Float price;
+    public Double price;
 
 
 //
@@ -58,8 +69,8 @@ public class TestSearch {
 //    }
 
     @Test
-    public void search(){
-        assertThat(searchPage.search(stock).getCurrentPrice(),greaterThan(price));
+    public void search() throws IOException {
+        assertThat(searchPage.search(stock).getCurrentPrice(),greaterThan(price.floatValue()));
     }
 
     @After

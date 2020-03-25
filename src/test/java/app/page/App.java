@@ -42,14 +42,15 @@ public class App extends BasePage {
     }
 
     public static SearchPage toSearch() {
-
-        click(By.id("com.xueqiu.android:id/tv_search"));
+        //click(By.id("com.xueqiu.android:id/tv_search"));
+        parseSteps("/app/page/app.yaml","toSearch");
         return new SearchPage();
 
     }
 
     public static StockPage toStocks(){
-        click(By.xpath("//*[contains(@resource-id,'tab_name') and @text='自选']"));
+//        click(By.xpath("//*[contains(@resource-id,'tab_name') and @text='自选']"));
+        parseSteps("/app/page/app.yaml","toStocks");
         return new StockPage();
     }
 }
