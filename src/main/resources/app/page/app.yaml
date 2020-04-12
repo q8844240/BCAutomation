@@ -1,8 +1,9 @@
 
-toSearch:
-  steps:
-    - id: home_search
+methdos:
+  toSearch:
+    steps:
+      - id: home_search
 
-toStocks:
-  steps:
-    - xpath: "//*[contains(@resource-id,'tab_name') and @text='自选']"
+  toStocks:
+    steps:
+      - xpath: "//*[contains(@resource-id,'tab_name') and @text='自选']"

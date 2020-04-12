@@ -1,20 +1,51 @@
 
-search:
-  steps:
-    - id: search_input_text
-      send: ${keyword}
-    - id: name
+#search:
+#  steps:
+#    - id: search_input_text
+#      send: ${keyword}
+#    - id: name
+#
+#getCurrentPrice:
+#  steps:
+#    - id: current_price
+#      get: text
+#      dump: price
+#
+#cancle:
+#  steps:
+#    - id: action_close
+#
+#select:
+#  steps:
+#    - id: follow_btn
 
-getCurrentPrice:
-  steps:
-    - id: current_price
-      get: text
-      dump: price
+elements:
+  search_input_text:
+    element:
+      - id: search_input_text
+        os: android
+      - id: search_edit
+        os: ios
+      - xpath: search_input_text
+        os: android
+        version: 4.4
 
-cancle:
-  steps:
-    - id: action_close
+methods:
+  search:
+    steps:
+      - id: search_input_text
+        send: ${keywprd}
+      - id: name
 
-select:
-  steps:
-    - id: follow_btn
+  getCurrentPrice:
+      - id: current_price
+        get: text
+        dump: price
+
+  cancle:
+    steps:
+      - id: action_close
+
+  select:
+    steps:
+      - id: follow_btn

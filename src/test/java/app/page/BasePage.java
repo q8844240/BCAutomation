@@ -7,9 +7,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.touch.TapOptions;
 import io.appium.java_client.touch.offset.PointOption;
-import junit.framework.TestCase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
@@ -24,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class BasePage {
 
     public static AndroidDriver<WebElement> driver;
-
+    private PageObjectModel model = new PageObjectModel();
     public HashMap<String, Object> getParams() {
         return params;
     }
@@ -120,50 +118,57 @@ public class BasePage {
         parseSteps(Thread.currentThread().getStackTrace()[2].getMethodName());
     }
     public void parseSteps(String method) {
-        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+
         String path = "/"+ this.getClass().getCanonicalName().replace(".","/")+".yaml";
-        TypeReference<HashMap<String,TestCaseSteps>> typeRef = new TypeReference<HashMap<String,TestCaseSteps>>(){};
-        try {
-            HashMap<String,TestCaseSteps> steps = mapper.readValue(
-                    TestSearch.class.getResourceAsStream(path),
-                    typeRef
-            );
-            parseSteps(steps.get(method));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        parseSteps(path,method);
+//        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+//
+//        TypeReference<HashMap<String, PageObjectModel>> typeRef = new TypeReference<HashMap<String, PageObjectModel>>(){};
+//        try {
+//            PageObjectModel model = mapper.readValue(
+//                    TestSearch.class.getResourceAsStream(path),
+//                    PageObjectModel.class
+//            );
+//            parseSteps(model);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
-    public static void parseSteps(String path,String method){
+    public  void parseSteps(String path,String method){
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        TypeReference<HashMap<String,TestCaseSteps>> typeRef = new TypeReference<HashMap<String,TestCaseSteps>>(){};
+//        TypeReference<HashMap<String, PageObjectMethod>> typeRef = new TypeReference<HashMap<String, PageObjectMethod>>(){};
         try {
-            HashMap<String,TestCaseSteps> steps = mapper.readValue(
+            model = mapper.readValue(
                     BasePage.class.getResourceAsStream(path),
-                    typeRef
+                    PageObjectModel.class
             );
-            parseSteps(steps.get(method));
+            parseSteps(model.methods.get(method));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static void parseSteps(TestCaseSteps steps){
+    private static void parseModel(PageObjectModel model){
+
+    }
+
+    private static void parseElements(){
+
+    }
+
+    private void parseSteps(PageObjectMethod steps){
         steps.getSteps().forEach(step->{
             WebElement element = null;
             String id = step.get("id");
             if (id!=null){
                 element = driver.findElement(By.id(id));
-            }
-
-            String xpath = step.get("xpath");
-            if (xpath!=null){
-                element = driver.findElement(By.xpath(xpath));
-            }
-
-            String aid = step.get("aid");
-            if (aid!=null){
-                element = driver.findElement(MobileBy.AccessibilityId(aid));
+            }else if (step.get("xpath")!=null){
+                element = driver.findElement(By.xpath(step.get("xpath")));
+            }else if (step.get("aid")!=null){
+                element = driver.findElement(MobileBy.AccessibilityId(step.get("aid")));
+            }else if (step.get("element")!=null){
+                element = driver.findElement(model.elements.get(step.get("element")).getLocator());
             }
 
             String send = step.get("send");
