@@ -28,7 +28,8 @@ public class App extends BasePage {
 
         System.out.printf("ceshi 结束");
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-        desiredCapabilities.setCapability("udid","emulator-5554");
+
+        desiredCapabilities.setCapability("udid",System.getenv("UDID"));
         desiredCapabilities.setCapability("platformName", "android");
         //desiredCapabilities.setCapability("deviceName", "emulator-5554");
         //desiredCapabilities.setCapability("deviceName", "1ca2e5260304");
@@ -36,7 +37,7 @@ public class App extends BasePage {
         desiredCapabilities.setCapability("appActivity","view.WelcomeActivityAlias");
         desiredCapabilities.setCapability("noReset",true);
         desiredCapabilities.setCapability("autoGrantPermissions",true);
-
+       // System.out.println("package="+desiredCapabilities.getCapability("devicename"));
 
         URL remoteUrl = new URL("http://localhost:4723/wd/hub");
 
