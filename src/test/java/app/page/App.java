@@ -31,7 +31,7 @@ public class App extends BasePage {
 
         //desiredCapabilities.setCapability("udid",System.getenv("UDID"));
         desiredCapabilities.setCapability("platformName", "android");
-        desiredCapabilities.setCapability("deviceName", "emulator-5554");
+        desiredCapabilities.setCapability("deviceName", System.getenv("UDID"));
         //desiredCapabilities.setCapability("deviceName", "1ca2e5260304");
         desiredCapabilities.setCapability("appPackage","com.xueqiu.android");
         desiredCapabilities.setCapability("appActivity","view.WelcomeActivityAlias");
