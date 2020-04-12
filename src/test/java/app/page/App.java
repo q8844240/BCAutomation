@@ -29,9 +29,9 @@ public class App extends BasePage {
         System.out.printf("ceshi 结束");
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 
-        desiredCapabilities.setCapability("udid",System.getenv("UDID"));
+        //desiredCapabilities.setCapability("udid",System.getenv("UDID"));
         desiredCapabilities.setCapability("platformName", "android");
-        //desiredCapabilities.setCapability("deviceName", "emulator-5554");
+        desiredCapabilities.setCapability("deviceName", "emulator-5554");
         //desiredCapabilities.setCapability("deviceName", "1ca2e5260304");
         desiredCapabilities.setCapability("appPackage","com.xueqiu.android");
         desiredCapabilities.setCapability("appActivity","view.WelcomeActivityAlias");
